@@ -10,9 +10,12 @@ public class AnalyticsCounter {
 
 
 	public static void main(String args[]) throws Exception {
-		// first get input
+		// Appel la classe qui lit le fichier
 
 		ISymptomReader reader  = new ReadSymptomDataFromFile("C:\\Users\\maxim\\OneDrive\\Documents\\Projet Openclassroom\\Projet 2\\Project_DA_Java_EN_Come_to_the_Rescue_of_a_Java_Application-master\\Project02Eclipse\\symptoms.txt");
+
+		// Construit la Map et la list à partir des données extraites
+
 		List<String> listeBrute =reader.getSymptoms() ;
 		Map<String, Integer> symptoms  = new HashMap<>();
 		List<String> listeOrdonne = new ArrayList();
@@ -27,7 +30,7 @@ public class AnalyticsCounter {
 			}
 
 
-			//
+			// Imprime la liste des symptomes et leur occurence
 		}
 		for (String symptom: symptoms.keySet()
 			 ) {
@@ -37,7 +40,7 @@ public class AnalyticsCounter {
 		System.out.println(symptoms);
 		System.out.println(symptoms.size());
 		
-		// next generate output
+		// Appel de classe pour écriture
 
 		ISymptomsWriter writer = new WriteSymptomsDataInFile();
 		writer.write(symptoms, listeOrdonne);

@@ -9,7 +9,7 @@ import java.util.List;
 public class AnalyticsCounter {
 
 
-	public static void main(String args[]) throws Exception {
+	public static void main(String args[]) {
 		// Appel la classe qui lit le fichier
 
 		ISymptomReader reader  = new ReadSymptomDataFromFile("C:\\Users\\maxim\\OneDrive\\Documents\\Projet Openclassroom\\Projet 2\\Project_DA_Java_EN_Come_to_the_Rescue_of_a_Java_Application-master\\Project02Eclipse\\symptoms.txt");
@@ -27,7 +27,7 @@ public class AnalyticsCounter {
 			}
 			else {
 				symptoms.put(symptom,symptoms.get(symptom)+1);
-			}
+		}
 
 
 			// Imprime la liste des symptomes et leur occurence

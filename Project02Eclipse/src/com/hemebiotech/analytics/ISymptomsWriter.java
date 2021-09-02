@@ -20,6 +20,6 @@ public interface ISymptomsWriter {
      *                   correspond à la liste ordonnée des symptomes
      * @throws IOException
      */
-    public void write (Map<String, Integer> symptoms, List<String> listeOrdonne) throws IOException;
+    public void write (Map<String, Integer> symptoms, List<String> listeOrdonne) ;
 
 }

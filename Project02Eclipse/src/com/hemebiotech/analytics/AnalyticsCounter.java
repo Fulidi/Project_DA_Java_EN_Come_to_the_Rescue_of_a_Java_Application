@@ -1,43 +1,51 @@
 package com.hemebiotech.analytics;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+
 import java.io.FileWriter;
+import java.io.IOException;
+import java.util.*;
+import java.util.List;
 
 public class AnalyticsCounter {
-	private static int headacheCount = 0;	// initialize to 0
-	private static int rashCount = 0;		// initialize to 0
-	private static int pupilCount = 0;		// initialize to 0
-	
+
+
 	public static void main(String args[]) throws Exception {
-		// first get input
-		BufferedReader reader = new BufferedReader (new FileReader("symptoms.txt"));
-		String line = reader.readLine();
+		// Appel la classe qui lit le fichier
 
-		int i = 0;	// set i to 0
-		int headCount = 0;	// counts headaches
-		while (line != null) {
-			i++;	// increment i
-			System.out.println("symptom from file: " + line);
-			if (line.equals("headache")) {
-				headCount++;
-				System.out.println("number of headaches: " + headCount);
+		ISymptomReader reader  = new ReadSymptomDataFromFile("C:\\Users\\maxim\\OneDrive\\Documents\\Projet Openclassroom\\Projet 2\\Project_DA_Java_EN_Come_to_the_Rescue_of_a_Java_Application-master\\Project02Eclipse\\symptoms.txt");
+
+		// Construit la Map et la list à partir des données extraites
+
+		List<String> listeBrute =reader.getSymptoms() ;
+		Map<String, Integer> symptoms  = new HashMap<>();
+		List<String> listeOrdonne = new ArrayList();
+
+		for (String symptom: listeBrute) {
+			if (!symptoms.containsKey(symptom)){
+				symptoms.put(symptom, 1);
+				listeOrdonne.add(symptom);
 			}
-			else if (line.equals("rush")) {
-				rashCount++;
-			}
-			else if (line.contains("pupils")) {
-				pupilCount++;
+			else {
+				symptoms.put(symptom,symptoms.get(symptom)+1);
 			}
 
-			line = reader.readLine();	// get another symptom
+
+			// Imprime la liste des symptomes et leur occurence
 		}
+		for (String symptom: symptoms.keySet()
+			 ) {
+			System.out.println(symptom +" : " + symptoms.get(symptom));
+
+		}
+		System.out.println(symptoms);
+		System.out.println(symptoms.size());
 		
-		// next generate output
-		FileWriter writer = new FileWriter ("result.out");
-		writer.write("headache: " + headacheCount + "\n");
-		writer.write("rash: " + rashCount + "\n");
-		writer.write("dialated pupils: " + pupilCount + "\n");
-		writer.close();
+		// Appel de classe pour écriture
+
+		ISymptomsWriter writer = new WriteSymptomsDataInFile();
+		writer.write(symptoms, listeOrdonne);
+
 	}
+
+
 }
